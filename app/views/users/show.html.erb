@@ -49,6 +49,40 @@
     
     
   <% end %>
+  
+  
+  
+  
+  
+<!-- こっちがsell用 -->   
+<!-- <%# if @user.sells.any? %>-->
+<!--    <h3>sells (<%#= @user.sells.count %>)</h3>-->
+        <!-- 投稿の数 -->
+    <!-- @user - 今いるページのIDのユーザーの、、 -->
+<!--    <ol class="sells">-->
+<!--    <%#= render "sells/sell" %>-->
+    <!-- @sellは、　@user.sells.paginate(page: params[:page])　 --> 
+    <!-- つまり、sells(メイン)の全ての情報--> 
+    <!-- これをrailsが、自動的に、viewのsellと繋げる--> 
+    <!-- なぜ判別可能かというと、renderの使い道が、particleファイルのenbeddedのみだから。--> 
+<!-- ----- --> 
+    <!-- 別の方法 --> 
+    <!--%= render "sells/sell" %-->
+<!--    </ol>-->
+<!-- ----- --> 
+<!--    <%#= will_paginate @sells %>-->
+    <!-- will_paginate @user.sells.pagenate(page: params[:page])　と同じ意味。 -->
+<!--  <%# end %>-->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   </div>
   
 </div>

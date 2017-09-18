@@ -45,7 +45,13 @@ module SessionsHelper
             user = User.find_by(id: user_id)
             # 左に、引数を入れれる
             
-            if user && user.authenticated?(cookies[:remember_token])
+            #if user && user.authenticated?(cookies[:remember_token])
+            # ↓↓↓
+            if user && user.authenticated?(:remember, cookies[:remember_token])
+            #メール認証のための変更
+
+            
+            
             
             #check
             #if user && user.authenticated?(:remember, cookies[:remember_token])        

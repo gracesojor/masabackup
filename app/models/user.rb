@@ -1,10 +1,39 @@
+#class User < ApplicationRecord
 class User < ActiveRecord::Base
+  
+#—————
+#以下はパスワード再設定のためです。—————
+#以下はメール認証のためです。—————
+#—————  
+  attr_accessor :remember_token, :activation_token, :reset_token
+  before_save   :downcase_email
+  #メールアドレス小文字変換
+  before_create :create_activation_digest
+  #一時的なランダム文字列（トークン）を発行
+
+#—————
+#以下はマイクロポストのためです。—————
+#—————
   has_many :microposts, dependent: :destroy
   #これによって、初めて2つのDBがコネクト
   #親が死んだら、子も死ぬ設定。
+#—————
+#以下はsellのためです。—————
+#—————
+  has_many :sells, dependent: :destroy
+  #これによって、初めて2つのDBがコネクト
+  #親が死んだら、子も死ぬ設定。
+#—————
+#以下はdetailのためです。—————
+#—————
+  has_many :details, dependent: :destroy
+  #これによって、初めて2つのDBがコネクト
+  #親が死んだら、子も死ぬ設定。
   
-  
-  
+#—————
+#以下はフォロー/アンフォローのためです。１—————
+#—————
+
   #フォローする設定ーーーーーーー
   #ーーーーーーーーーーーーーーー
   has_many :active_relationships,   
@@ -48,7 +77,9 @@ class User < ActiveRecord::Base
   
   
   
-  
+def add(x, y)
+    x + y # 使い方　number = add(3,4)
+end
   
   
   #フォローされる設定ーーーーーーー
@@ -63,12 +94,16 @@ class User < ActiveRecord::Base
   
   #following(してる)とfollowers(されてる)は逆の意味(ややこしいが)
   
+#状態を聞くアクションメソッドは、親側(直接MODELに命令を下さない側)で行う
+#まあ、単純にユーザー通しの関係性(リレーション)だから、主語はユーザー。
+#リレーション側じゃなくてユーザー側でやってよ。
+#リレーションはあくまでもhelpだよって事  
   
   
   
-  
-  
-
+#—————
+#以下はサインアップのためです。—————
+#—————
   
   # サインアップのためのvalidation
   
@@ -77,6 +112,7 @@ class User < ActiveRecord::Base
   
   validates :name, presence: true, length:{ maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  
   validates :email, presence: true, length:{ maximum: 255 },
   format: { with: VALID_EMAIL_REGEX },
   uniqueness: { case_sensitive: false }
@@ -126,22 +162,35 @@ class User < ActiveRecord::Base
   # tokenはモデルで作られる
   # User.new_token　- ランダム文字列
 
-  
+
+
+  #-----------TRY 1
   #③　for rememberボックス　　①②が同じものか確認(再ログイン時)
   # Return true if the given token matches the digest.
-  def authenticated?(remember_token)
+#def authenticated?(remember_token)
   #  【authenticated?(remember_token)】という名前のaction
   #  真偽を確認するmethod名(action名)には ? が必須
-    
-    return false if remember_digest.nil?
+  
+  #return false if remember_digest.nil?
     #　remember_digest(トークンを暗号化)がない前提　←空ならfalse
-    
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  #  BCrypt::Password.new(remember_digest).is_password?(remember_token)
     #　remember_digest(トークンを暗号化)　と、remember_token(暗号化する前のトークン)が、、
     #　同じものかどうかを　BCrypt::Password　を使って確認
     #　この動作をauthenticatedと呼ぶ
-    
+
+  #end
+  
+  
+  
+  #-----------TRY 2
+  # Returns true if the given token matches the digest.
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
+  
+  
   
   
   
@@ -168,7 +217,9 @@ class User < ActiveRecord::Base
 
   
   
-  
+#—————
+#以下はニュースフィードのためです。—————
+#—————  
   
   def feed
     
@@ -192,7 +243,9 @@ class User < ActiveRecord::Base
   #見つけるだけ　←フィードをアウトプットするための
   #特定のユーザーのマイクロポストを全部見るける
   
-  
+#—————
+#以下はフォロー/アンフォローのためです。２—————
+#—————
   
   # # Follows a user.
   # def follow(other_user)
@@ -215,6 +268,10 @@ class User < ActiveRecord::Base
 
 
   #TRY 2
+  
+  
+  
+  
   
   
   #ここはuserのコントローラーなので、ユーザーの情報に関するアクションを作ってる
@@ -240,5 +297,66 @@ class User < ActiveRecord::Base
     #following.include?　→followingに情報入ってる？？
   end
 
+
+
+
+
+#—————
+#以下はメール認証、パスワードリセットのためです。—————
+#—————    
+
+#ここらへん全然わからん！！
+
+    # Activates an account.
+    #アカウントが有効かのメール確認済んでる？
+    
+  def activate
+    update_attribute(:activated,    true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+
+  # Sends activation email.
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
+  # Sets the password reset attributes.
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
   
+  # Sends password reset email.
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+  
+  
+  
+    # Returns true if a password reset has expired.
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+    #要求された時刻が、今の２時間前より大きいか？？
+  end
+  #パスワードリセットの期限
+  
+  
+private
+    
+    
+  # Converts email to all lower-case.
+  #メールアドレス小文字変換
+    def downcase_email
+      self.email = email.downcase
+    end
+
+  # Creates and assigns the activation token and digest.
+  #一時的なランダム文字列（トークン）を発行
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
+ 
+ 
 end

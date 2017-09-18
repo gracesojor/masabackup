@@ -1,0 +1,24 @@
+<% provide(:title,"詳細") %>
+
+<p>
+  <strong>機種名:</strong>
+  <%= @sell.name %>
+</p>
+ 
+<p>
+  <strong>メーカー:</strong>
+  <%= @sell.maker %>
+</p>
+
+<p>
+  <strong>個数:</strong>
+  <%= @sell.number %>
+</p>
+
+<%= render 'sells/detail' %>
+
+<!--<p>-->
+<!--  <strong>会社名:</strong>-->
+   <!--<span class="user"><%#= link_to sell.user.name, sell.user %></span>-->
+<!--  <%#= sell.user.name %>-->
+<!--</p>-->

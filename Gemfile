@@ -3,12 +3,14 @@ source 'https://rubygems.org'
 #CSSとjquery
 gem 'bootstrap'
 gem 'jquery-rails'
+# gem 'jquery-turbolinks'　
+# gem 'jquery-rails', '3.0.4'
 
 #パスワードのハッシュ化
 gem 'bcrypt','3.1.11'
 
 #ダミーデータ
-gem 'faker','1.7.3'
+gem 'faker','1.8.4'
 
 #ページネーション
 gem 'will_paginate', '3.1.5'
@@ -24,16 +26,29 @@ gem 'fog', '1.40.0'
 #画像アップロードのためーーー
 
 
+gem 'jp_prefecture'
+
+
+
 #gemの追加後は、バンドルのインストール
 
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
+
+
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+#gem 'mysql2'
+
+
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

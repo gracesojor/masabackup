@@ -1,0 +1,53 @@
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
+<div class="container">
+  <div class="form-center">
+    <div class="box-whitesmoke">
+      <div class="row">
+        <div class="col-md-12 col-md-offset-3">
+     
+     
+     
+<%#= form_for @hoge, url: '/hoge_create' do |f| %>
+    <%#= f.hidden_field :befo, :value => "@user.money" %>
+    <%#= f.text_field :afte %>
+    <%#= f.hidden_field :money, :value => :befo + :afte %>
+    <%#= f.submit %>
+<%# end %>
+
+
+
+<!--ダメだった-->
+<%= form_for(@user) do |f| %>
+<%= @user.name %>
+<%= render 'shared/error_message', object: f.object %>
+<%= f.hidden_field :befo, :value => "@user.money" %>
+<%= f.text_field :money %>
+<%= f.hidden_field :money, :value => add(:befo,:money) %>
+<%= f.submit "加算する", class: "btn btn-primary" %>
+<% end %>     
+
+
+
+              
+          <%#= form_for(@user) do |f| %>
+            <!--%= render 'shared/error_messages' %-->
+          <%#= @user.name %>
+          <%#= render 'shared/error_message', object: f.object %>
+          
+          
+          <%#= f.label :money %>
+          <%#= f.text_field :money, class: 'form-control' %>
+          
+          
+          <%#= f.submit "加算する", class: "btn btn-primary" %>
+          <%# end %>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<table>
+
+    <tr>
+      
+      <th>ユーザーの名前</th>
+ <!--<th>ユーザーの会社名前</th>-->
+ 
+      <th><%= sortable "created_at", "更新日" %></th>
+      <th><%= sortable "status", "状況" %></th>
+      <th><%= sortable "place", "前設置" %></th>
+      
+<%#= link_to "Name", :sort => "created_at" %>
+<%#= link_to "Price", :sort => "status" %>
+<%#= link_to "Released", :sort => "place" %>
+
+<th></th>
+      <th><%= sortable "maker", "メーカー" %></th>
+      <th><%= sortable "name", "物 件 名" %></th>
+      <th><%= sortable "number", "数量" %></th>
+      <th><%= sortable "type_machine", "種別" %></th>
+      <th><%= sortable "price", "売却価格" %></th>
+      <th><%= sortable "removal_date", "撤去日" %></th>
+      <th><%= sortable "remnant", "残債" %></th>
+      <th><%= sortable "stage", "使用次" %></th>
+      <th><%= sortable "condition", "状態" %></th>
+      <th><%= sortable "remarks", "備考" %></th>
+
+
+
+    </tr>
+ 
+    
+    
+      <tr>
+        
+        <td><%= @sell.user.detail.company_name %></td>
+        <%#= sell.user.detail.company_name %>
+        
+        <td><%= @sell.created_at %></td>
+        <td><%= @sell.status %></td>
+        <td><%= @sell.place %></td>
+        <td><%= @sell.maker %></td>
+        <td><%= @sell.name %></td>
+        <td><%= @sell.number %></td>
+        <td><%= @sell.type_machine %></td>
+        <td><%= @sell.price %></td>
+        <td><%= @sell.removal_date %></td>
+        <td><%= @sell.remnant %></td>
+        <td><%= @sell.stage %></td>
+        <td><%= @sell.condition %></td>
+        <td><%= @sell.remarks %></td>
+
+      </tr>
+
+</table>

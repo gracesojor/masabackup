@@ -1,6 +1,16 @@
 @import "bootstrap";
 
 
+body{
+  min-width:1000px;
+}
+
+.container{
+  margin:0 7% 0 7%;
+}
+
+
+
 /* mixins, variables, etc. */
 $gray-medium-light: #eaeaea;
 $gray-darker:#eaeaeb; 
@@ -33,6 +43,38 @@ footer {
 }
 
 
+/* header */
+
+.navbar-brand{
+  
+padding: 0 0 0 7%;
+}
+
+.navbar-collapse{
+padding: 0 7% 0 0;
+}
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+#logo:hover {
+  color: #fff;
+  text-decoration: none;
+}
+#right_menu{
+  padding: 0 10px 0 10px;
+  
+}
+
+
 
 /* error */
 
@@ -50,14 +92,24 @@ footer {
 
 .navbar {
   color: #FFFFFF;
-  background-color: #ff7f50;
-  padding: 1px;
+  background-color: #e9573f;
   margin-bottom:10px;
+  font-size: 14px;
+  // padding-left: 60px;
+  // padding-right: 80px;
 }
 
 .navbar-inverse .navbar-nav > li > a {
   color: #FFFFFF;
   padding: 0 8px;
+}
+
+.navbar a {
+  color: #D5D5D5;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+  margin-right: 8px;
 }
 
 .navbar-fixed-top {
@@ -68,6 +120,15 @@ footer {
   color: #b9b9b3;
   padding-right: 0;
 }
+
+.navbar-light .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
 
 .nav-collapse .btn {
   padding: 4px 4px 4px;
@@ -89,13 +150,11 @@ footer {
   font-size: 100%;
 }
 
-
 .btn-inverse {
   border-color: #727267;
   background-color: #4c4c45;
   color: white;
 }
-
 
 
 /* checkbox */
@@ -130,49 +189,135 @@ footer {
 
 
 
-/* microposts */
+// /* microposts */
 
-.microposts {
-  list-style: none;
-  padding: 0;
-  li {
-    padding: 10px 0;
-    border-top: 1px solid #e8e8e8;
-  }
-  .user {
-    margin-top: 5em;
-    padding-top: 0;
-  }
-  .content {
-    display: block;
-    margin-left: 60px;
-    img {
-      display: block;
-      padding: 5px 0;
+// .microposts {
+//   list-style: none;
+//   padding: 0;
+//   li {
+//     padding: 10px 0;
+//     border-top: 1px solid #e8e8e8;
+//   }
+//   .user {
+//     margin-top: 5em;
+//     padding-top: 0;
+//   }
+//   .content {
+//     display: block;
+//     img {
+//       display: block;
+//       padding: 5px 0;
+//     }
+//   }
+//   .timestamp {
+//     color: $gray-light;
+//     display: block;
+//     margin-left: 60px;
+//   }
+//   .gravatar {
+//     float: left;
+//     margin-right: 10px;
+//     margin-top: 5px;
+//   }
+// }
+
+// aside {
+//   textarea {
+//     height: 100px;
+//     margin-bottom: 5px;
+//   }
+// }
+
+// span.picture {
+//   margin-top: 10px;
+//   input {
+//     border: 0;
+//   }
+// }
+
+
+
+// .form-width{
+//   width:200%;
+// }
+
+
+// .pretty th .current {
+//   padding-right: 12px;
+//   background-repeat: no-repeat;
+//   background-position: right center;
+// }
+// .pretty th .asc { 
+//   background-image: url(/images/up_arrow.gif); 
+// }
+
+// .pretty th .desc { 
+//   background-image: url(/images/down_arrow.gif); 
+// }
+
+
+// table
+
+table{
+  border: 1px solid #ccc;
+  width:100%;
+  table-layout: fixed;
+  #word-break: break-word;　　/*追加する*/
+}
+
+thead{
+  border: 1px solid #fff;
+}
+
+tbody, tr, td{
+  border: 1px solid #ccc;
+  padding:10% ;
+}
+
+.small-zoom{
+  zoom:0.7;
+}
+
+.font-small thead{
+  font-size:8px;
+  
+    a {
+    color: white;
+    font-weight:default;
     }
-  }
-  .timestamp {
-    color: $gray-light;
-    display: block;
-    margin-left: 60px;
-  }
-  .gravatar {
-    float: left;
-    margin-right: 10px;
-    margin-top: 5px;
-  }
+  
 }
 
-aside {
-  textarea {
-    height: 100px;
-    margin-bottom: 5px;
-  }
+.font-small thead{
+  font-size:8px;
 }
 
-span.picture {
-  margin-top: 10px;
-  input {
-    border: 0;
-  }
+.sampleTable {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.red{
+  color:red;
+}
+
+// .sampleTable th,
+// .sampleTable td {
+//     border: 1px solid #CCCCCC;
+//     padding: 5px 10px;
+//     text-align: left;
+// }
+
+
+
+// money
+
+.money_box{
+border: 1px solid #CCCCCC;
+padding: 10px;
+margin: 10px;
+font-size :15px;
+font-weight:bold;
+// background:white;
+// color:#000;
 }

@@ -4,6 +4,11 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
   
+  
+  
+  
+  
+  
   # logged_in_user　correct_user　はメソッドで、
   # このページの以下でdefineしてる。
   
@@ -40,6 +45,10 @@ class UsersController < ApplicationController
 
     
   end
+  
+  def bank
+    @users = User.all
+  end
 
   def new
     @user = User.new
@@ -49,6 +58,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
+  
+  #ユーザーが登録される時
   def create
     #①DBに情報を入れる準備
     #②DBに情報を入れる
@@ -68,22 +79,24 @@ class UsersController < ApplicationController
     #Try2
    if @user.save
      # INSERTと同じ
-    #　.save →  DBに情報入れた
+    #.save →  DBに情報入れた
      
+
+    UserMailer.account_activation(@user).deliver_now
+    #メールを送る
      
-     
-    log_in @user
+    #log_in @user
     #sessionヘルパーで定義したやつ
     
-    remember @user 
+    #remember @user 
 
-     flash[:success] = "Welcome to the Awesome Blog App!"
+     flash[:success] = "認証メールを送信いたしました。ご確認ください。"
     #ポップアップ
      
      
-     redirect_to @user
-    #その情報のところにいく　=SHOWページにいく
-     
+     redirect_to root_url
+    #前　ー　その情報のところにいく　=SHOWページにいく
+    #メール認証追加後　ー　トップへ飛ぶ設定
      
      
    else
@@ -137,7 +150,7 @@ class UsersController < ApplicationController
   end
   #後ろの４つ登録していいですよね？
 
-  
+
   
   
   
@@ -183,8 +196,9 @@ class UsersController < ApplicationController
  
  
  
- 
- 
+#----
+#以下、フォロー機能のカスタムフィールドのためです。----
+#----
  #Sample Route: /users/32/followers
   
   def following

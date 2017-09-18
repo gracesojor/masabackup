@@ -1,0 +1,12 @@
+<% provide(:title,"index") %>
+<h1>管理者：全員のバンク一覧</h1>
+
+<ul class="users">
+<%= will_paginate %>
+  <% @banks.each do |bank| %>
+  
+<%= render bank %>
+
+  <% end %>
+<%= will_paginate %>
+</ul>

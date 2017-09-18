@@ -1,0 +1,13 @@
+<li>
+
+<%= link_to bank.user.name, user %>
+<br>
+<%= bank.price %>
+
+<% if current_user.admin? && !current_user?(user) %>
+| <%= link_to "delete" , user ,method: :delete, data: { confirm: "you sure?" } %>
+<!-- deleteボタン -->
+
+<% end %>
+
+</li>
